@@ -1,8 +1,12 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="(isHandset$ | async) === false">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item href="#">Link 1</a>
@@ -17,11 +21,83 @@
         aria-label="Toggle sidenav"
         mat-icon-button
         (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+        *ngIf="isHandset$ | async"
+      >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>DESTA</span>
     </mat-toolbar>
-    <!-- Add Content Here -->
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <mat-selection-list #companyList [multiple]="false">
+            <mat-list-option
+              *ngFor="let company of companies"
+              [value]="company"
+            >
+              <img matListAvatar [src]="company.logo" />
+              <h3 matLine>{{ company.name }}</h3>
+              <p matLine>
+                <span> {{ company.description }} </span>
+                <span class="float-right"> -- {{ company.timings }} </span>
+              </p>
+              <p matLine>
+                <span
+                  >Address:
+                  <a
+                    target="_blank"
+                    [href]="
+                      'https://www.google.com/maps/search/?api=1&query=' +
+                      company.address
+                    "
+                    >{{ company.address }}</a
+                  ></span
+                >
+              </p>
+              <p matLine>
+                <a
+                  *ngIf="company.instagram"
+                  target="_blank"
+                  [href]="company.instagram"
+                  class="m-1"
+                >
+                  <img
+                    src="assets/instagram-logo.png"
+                    width="14px"
+                    height="14px"
+                  />
+                </a>
+                <a
+                  *ngIf="company.twitter"
+                  [href]="company.twitter"
+                  class="m-1"
+                  target="_blank"
+                >
+                  <img
+                    src="assets/twitter-logo.png"
+                    width="14px"
+                    height="14px"
+                  />
+                </a>
+                <a
+                  target="_blank"
+                  *ngIf="company.facebook"
+                  [href]="company.facebook"
+                  class="m-1"
+                >
+                  <img
+                    src="assets/facebook-logo.png"
+                    width="14px"
+                    height="14px"
+                  />
+                </a>
+              </p>
+              <mat-divider></mat-divider>
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+      </div>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

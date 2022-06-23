@@ -15,3 +15,8 @@
   top: 0;
   z-index: 1;
 }
+
+.float-right {
+  float: right;
+  margin: 5px;
+}
