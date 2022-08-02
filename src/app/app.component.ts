@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { AddressModel } from './address.model';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   companies = [
     {
       name: 'ABC Inc.',
@@ -132,6 +134,8 @@ export class AppComponent {
     },
   ];
 
+  public addresses: AddressModel[] = [];
+
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
@@ -139,5 +143,38 @@ export class AppComponent {
       shareReplay()
     );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private httpClient: HttpClient
+  ) {}
+
+  ngOnInit(): void {
+    this.httpClient
+      .get('assets/addresses.csv', { responseType: 'text' })
+      .subscribe((data) => {
+        let csvToRowArray = data.split('\n');
+
+        let headers = csvToRowArray[0].trim().split(', ');
+        console.log(headers);
+
+        csvToRowArray.forEach((row, index) => {
+          if (index === 0) {
+            return;
+          }
+          const addressArray = row.trim().split(',');
+          this.addresses.push(
+            new AddressModel(
+              addressArray[0],
+              addressArray[1],
+              addressArray[2],
+              addressArray[3],
+              addressArray[4],
+              addressArray[5]
+            )
+          );
+        });
+
+        console.log(this.addresses);
+      });
+  }
 }
