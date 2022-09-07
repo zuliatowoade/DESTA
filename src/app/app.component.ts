@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { AddressModel } from './address.model';
+import { BusinessInfo } from './business-info-model';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { AddressModel } from './address.model';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+  language = "eng"
   companies = [
     {
       name: 'ABC Inc.',
@@ -134,7 +136,10 @@ export class AppComponent implements OnInit {
     },
   ];
 
+  
+
   public addresses: AddressModel[] = [];
+  public businessInfos: BusinessInfo[] = [];
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -150,6 +155,45 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.httpClient
+      .get('assets/desta1.csv', { responseType: 'text' })
+      .subscribe((data) => {
+        let csvToRowArray = data.split('\n');
+
+        let headers = csvToRowArray[0].trim().split(', ');
+        console.log(headers);
+
+        csvToRowArray.forEach((row, index) => {
+          if (index === 0) {
+            return;
+          }
+          const businessInfoArray = row.trim().split(',');
+          this.businessInfos.push(
+            new BusinessInfo(
+              businessInfoArray[0],
+              businessInfoArray[1],
+              businessInfoArray[2],
+              businessInfoArray[3],
+              businessInfoArray[4],
+              businessInfoArray[5],
+              businessInfoArray[6],
+              businessInfoArray[7],
+              businessInfoArray[8],
+              businessInfoArray[9],
+              businessInfoArray[10],
+              businessInfoArray[11],
+              businessInfoArray[12],
+              businessInfoArray[13],
+              businessInfoArray[14],
+              businessInfoArray[15]
+            )
+          );
+        });
+
+        console.log(this.businessInfos);
+      });
+
+
+      this.httpClient
       .get('assets/addresses.csv', { responseType: 'text' })
       .subscribe((data) => {
         let csvToRowArray = data.split('\n');
@@ -176,5 +220,12 @@ export class AppComponent implements OnInit {
 
         console.log(this.addresses);
       });
+  }
+
+  public changeLanguage(){
+    if (this.language == "eng")
+      this.language = "spa"
+    else
+      this.language = "eng"
   }
 }
