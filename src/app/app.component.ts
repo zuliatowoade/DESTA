@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { AddressModel } from './address.model';
 import { BusinessInfo } from './business-info-model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -150,10 +151,17 @@ export class AppComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.activatedRoute.queryParamMap.subscribe( params => {
+      var testValue = params.get("locale")
+      console.log(testValue)
+      console.log(params.get("locale"))
+    })
     this.httpClient
       .get('assets/desta1.csv', { responseType: 'text' })
       .subscribe((data) => {
@@ -223,9 +231,13 @@ export class AppComponent implements OnInit {
   }
 
   public changeLanguage(){
-    if (this.language == "eng")
+    if (this.language == "eng"){
+      this.router.navigate([""], {queryParams: {locale:"spa"}})
       this.language = "spa"
-    else
+  }
+  else{
+  this.router.navigate([""], {queryParams: {locale:"en"}})
       this.language = "eng"
   }
+}
 }
