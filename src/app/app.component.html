@@ -26,7 +26,9 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>DESTA</span>
-      <button type="button" (click)="changeLanguage()">{{language == 'eng' ? 'Espanol': 'English'}}</button>
+      <button type="button" (click)="changeLanguage()">
+        {{ language == "eng" ? "French" : "English" }}
+      </button>
     </mat-toolbar>
 
     <div class="container">
@@ -40,8 +42,12 @@
               <img matListAvatar [src]="company.logoLink" />
               <h3 matLine>{{ company.name }}</h3>
               <p matLine>
-                <span *ngIf="language == 'eng'"> {{ company.descriptionEng }} </span>
-                <span *ngIf="language == 'spa'"> {{ company.descriptionSpa }} </span>
+                <span *ngIf="language == 'eng'">
+                  {{ company.descriptionEng }}
+                </span>
+                <span *ngIf="language == 'fr'">
+                  {{ company.descriptionSpa }}
+                </span>
                 <span class="float-right"> -- {{ company.hours }} </span>
               </p>
               <p matLine>

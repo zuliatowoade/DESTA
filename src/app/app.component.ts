@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  language = "eng"
+  language = 'en';
   companies = [
     {
       name: 'ABC Inc.',
@@ -137,8 +137,6 @@ export class AppComponent implements OnInit {
     },
   ];
 
-  
-
   public addresses: AddressModel[] = [];
   public businessInfos: BusinessInfo[] = [];
 
@@ -157,13 +155,13 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.queryParamMap.subscribe( params => {
-      var testValue = params.get("locale")
-      console.log(testValue)
-      console.log(params.get("locale"))
-    })
+    this.activatedRoute.queryParamMap.subscribe((params) => {
+      var testValue = params.get('locale');
+      console.log(testValue);
+      console.log(params.get('locale'));
+    });
     this.httpClient
-      .get('assets/desta1.csv', { responseType: 'text' })
+      .get('assets/desta.csv', { responseType: 'text' })
       .subscribe((data) => {
         let csvToRowArray = data.split('\n');
 
@@ -200,8 +198,7 @@ export class AppComponent implements OnInit {
         console.log(this.businessInfos);
       });
 
-
-      this.httpClient
+    this.httpClient
       .get('assets/addresses.csv', { responseType: 'text' })
       .subscribe((data) => {
         let csvToRowArray = data.split('\n');
@@ -230,14 +227,13 @@ export class AppComponent implements OnInit {
       });
   }
 
-  public changeLanguage(){
-    if (this.language == "eng"){
-      this.router.navigate([""], {queryParams: {locale:"spa"}})
-      this.language = "spa"
+  public changeLanguage() {
+    if (this.language == 'en') {
+      this.router.navigate([''], { queryParams: { locale: 'fr' } });
+      this.language = 'fr';
+    } else {
+      this.router.navigate([''], { queryParams: { locale: 'en' } });
+      this.language = 'en';
+    }
   }
-  else{
-  this.router.navigate([""], {queryParams: {locale:"en"}})
-      this.language = "eng"
-  }
-}
 }
