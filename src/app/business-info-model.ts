@@ -1,10 +1,10 @@
 export class BusinessInfo {
     constructor(
       public name: string,
-      public descriptionEng: string,
-      public descriptionSpa: string,
-      public categoryEng: string,
-      public categorySpa: string,
+      public descriptionEn: string,
+      public descriptionFr: string,
+      public categoryEn: string,
+      public categoryFr: string,
       public location: string,
       public phone: string,
       public hours: string,
@@ -14,7 +14,6 @@ export class BusinessInfo {
       public instagram: string,
       public twitter: string,
       public images: string,
-      public imageLink: string,
-      public logoLink: string
+      public logoImageUrl: string
     ) {}
   }
