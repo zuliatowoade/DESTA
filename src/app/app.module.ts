@@ -13,10 +13,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
 import { HttpClientModule } from '@angular/common/http';
-import { BusinessInfoComponent } from './business-info/business-info.component';
 
 @NgModule({
-  declarations: [AppComponent, BusinessInfoComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

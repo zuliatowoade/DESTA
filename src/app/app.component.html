@@ -26,86 +26,11 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>DESTA</span>
-      <button type="button" (click)="changeLanguage()">
-        {{ language == "eng" ? "French" : "English" }}
+      <span class="spacer"></span>
+      <button (click)="changeLanguage()" mat-flat-button color="primary">
+        {{ language == "en" ? "French" : "English" }}
       </button>
     </mat-toolbar>
-
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <mat-selection-list #companyList [multiple]="false">
-            <mat-list-option
-              *ngFor="let company of businessInfos"
-              [value]="company"
-            >
-              <img matListAvatar [src]="company.logoLink" />
-              <h3 matLine>{{ company.name }}</h3>
-              <p matLine>
-                <span *ngIf="language == 'eng'">
-                  {{ company.descriptionEng }}
-                </span>
-                <span *ngIf="language == 'fr'">
-                  {{ company.descriptionSpa }}
-                </span>
-                <span class="float-right"> -- {{ company.hours }} </span>
-              </p>
-              <p matLine>
-                <span
-                  >Address:
-                  <a
-                    target="_blank"
-                    [href]="
-                      'https://www.google.com/maps/search/?api=1&query=' +
-                      company.location
-                    "
-                    >{{ company.location }}</a
-                  ></span
-                >
-              </p>
-              <p matLine>
-                <a
-                  *ngIf="company.instagram"
-                  target="_blank"
-                  [href]="company.instagram"
-                  class="m-1"
-                >
-                  <img
-                    src="assets/instagram-logo.png"
-                    width="14px"
-                    height="14px"
-                  />
-                </a>
-                <a
-                  *ngIf="company.twitter"
-                  [href]="company.twitter"
-                  class="m-1"
-                  target="_blank"
-                >
-                  <img
-                    src="assets/twitter-logo.png"
-                    width="14px"
-                    height="14px"
-                  />
-                </a>
-                <a
-                  target="_blank"
-                  *ngIf="company.facebook"
-                  [href]="company.facebook"
-                  class="m-1"
-                >
-                  <img
-                    src="assets/facebook-logo.png"
-                    width="14px"
-                    height="14px"
-                  />
-                </a>
-              </p>
-              <mat-divider></mat-divider>
-            </mat-list-option>
-          </mat-selection-list>
-        </div>
-      </div>
-    </div>
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
