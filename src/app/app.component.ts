@@ -1,16 +1,18 @@
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+
+import { LanguageService } from './shared/language.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
-  language = 'en';
+export class AppComponent implements OnInit, OnDestroy {
+  language: string = 'fr';
+  private subscription: Subscription | undefined;
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
@@ -19,19 +21,23 @@ export class AppComponent implements OnInit {
     );
 
   constructor(
-    private router: Router,
+    private languageService: LanguageService,
     private breakpointObserver: BreakpointObserver
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.subscription = this.languageService.languageSubject.subscribe(
+      (language) => {
+        this.language = language;
+      }
+    );
+  }
 
   public changeLanguage() {
-    if (this.language == 'en') {
-      this.router.navigate([''], { queryParams: { locale: 'fr' } });
-      this.language = 'fr';
-    } else {
-      this.router.navigate([''], { queryParams: { locale: 'en' } });
-      this.language = 'en';
-    }
+    this.languageService.changeLanguage();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }

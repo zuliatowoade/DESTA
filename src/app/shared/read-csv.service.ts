@@ -26,9 +26,6 @@ export class ReadCsvService {
         tap((data) => {
           let csvToRowArray = data.split('\n');
 
-          let headers = csvToRowArray[0].trim().split(', ');
-          console.log(headers);
-
           csvToRowArray.forEach((row, index) => {
             if (index === 0) {
               return;
@@ -53,6 +50,7 @@ export class ReadCsvService {
                 businessInfoArray[14]
               )
             );
+            console.log('this._companies', this._companies);
           });
         })
       );
