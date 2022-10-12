@@ -1,8 +1,6 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { BusinessInfo } from '../business-info-model';
-import { ReadCsvService } from '../read-csv.service';
+import { BusinessInfo } from '../shared/business-info-model';
+import { ReadCsvService } from '../shared/read-csv.service';
 
 @Component({
   selector: 'app-home-page',

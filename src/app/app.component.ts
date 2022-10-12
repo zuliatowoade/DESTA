@@ -1,10 +1,8 @@
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { map, shareReplay } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map, shareReplay, switchMap, tap } from 'rxjs/operators';
-import { BusinessInfo } from './business-info-model';
-import { Router } from '@angular/router';
-import { ReadCsvService } from './read-csv.service';
 
 @Component({
   selector: 'app-root',
