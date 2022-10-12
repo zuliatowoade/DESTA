@@ -13,8 +13,6 @@ import { ReadCsvService } from './read-csv.service';
 })
 export class AppComponent implements OnInit {
   language = 'en';
-  public companies: BusinessInfo[] = [];
-
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
@@ -24,18 +22,10 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private readCsvService: ReadCsvService,
     private breakpointObserver: BreakpointObserver
   ) {}
 
-  ngOnInit(): void {
-    this.companies = this.readCsvService.companies;
-    if (!this.companies?.length) {
-      this.readCsvService.fetchDataFromCsv().subscribe(() => {
-        this.companies = this.readCsvService.companies;
-      });
-    }
-  }
+  ngOnInit(): void {}
 
   public changeLanguage() {
     if (this.language == 'en') {
