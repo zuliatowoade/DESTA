@@ -26,21 +26,22 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>DESTA</span>
-      <button type="button" (click)="changeLanguage()">
+      <span class="spacer"></span>
+      <button (click)="changeLanguage()" mat-flat-button color="primary">
         {{ language == "en" ? "French" : "English" }}
       </button>
     </mat-toolbar>
 
     <div class="container">
       <div class="row">
-        <div class="col-12" *ngIf="addresses.length">
+        <div class="col-12" *ngIf="companies.length">
           <mat-selection-list #companyList [multiple]="false">
             <mat-list-option
               *ngFor="let company of companies"
               [value]="company"
             >
               <img matListAvatar [src]="company.logoImageUrl" />
-              <h3 matLine>{{ company.name }}</h3>
+              <h3 matLine routerLink="abc">{{ company.name }}</h3>
               <p matLine>
                 <span *ngIf="language == 'en'">
                   {{ company.descriptionEn }}

@@ -20,3 +20,7 @@
   float: right;
   margin: 5px;
 }
+
+.spacer {
+  flex: 1 1 auto;
+}
