@@ -3,7 +3,7 @@
     <div class="col-12" *ngIf="companies.length">
       <mat-selection-list #companyList [multiple]="false">
         <mat-list-option
-          *ngFor="let company of companies| myfilter:filterargs;  let i = index"
+          *ngFor="let company of companies| myfilter:((query$ | async) || '');  let i = index"
           [value]="company"
         >
           <img matListAvatar [src]="company.logoImageUrl" />

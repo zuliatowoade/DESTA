@@ -1,6 +1,7 @@
 import {
   BehaviorSubject,
   filter,
+  Observable,
   Subject,
   Subscription,
   takeUntil,
@@ -23,13 +24,14 @@ export class HomePageComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   filterargs = '';
   public companies: BusinessInfo[] = [];
-  private _ngUnsubscribe$: Subject<any> = new Subject();
-
+  query$: Observable<string>;
   constructor(
     private readCsvService: ReadCsvService,
     private languageService: LanguageService,
     private searchService: SearchService
-  ) {}
+  ) {
+    this.query$ = this.searchService.searchQuery;
+  }
 
   ngOnInit(): void {
     this.companies = this.readCsvService.companies;
@@ -46,11 +48,6 @@ export class HomePageComponent implements OnInit, OnDestroy {
         this.language = language;
       })
     );
-    this.searchService.searchQuery
-      .pipe(takeUntil(this._ngUnsubscribe$))
-      .subscribe((query) => {
-        this.filterargs = query;
-      });
   }
 
   ngOnDestroy(): void {
