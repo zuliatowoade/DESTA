@@ -5,6 +5,7 @@ import { HomePageRoutingModule } from './home-page-routing.module';
 import { HomePageComponent } from './home-page.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [HomePageComponent],
@@ -13,6 +14,7 @@ import { MatListModule } from '@angular/material/list';
     HomePageRoutingModule,
     MatDividerModule,
     MatListModule,
+    SharedModule
   ],
 })
 export class HomePageModule {}
