@@ -4,6 +4,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 import { LanguageService } from './shared/language.service';
+import { BusinessInfo } from './shared/business-info-model';
+import { ReadCsvService } from './shared/read-csv.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +14,8 @@ import { LanguageService } from './shared/language.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   language: string = 'fr';
-  private subscription: Subscription | undefined;
+  private subscriptions: Subscription[] = [];
+  public companies: BusinessInfo[] = [];
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
@@ -21,16 +24,26 @@ export class AppComponent implements OnInit, OnDestroy {
     );
 
   constructor(
+    private readCsvService: ReadCsvService,
     private languageService: LanguageService,
     private breakpointObserver: BreakpointObserver
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.languageService.languageSubject.subscribe(
-      (language) => {
+    this.subscriptions.push(
+      this.languageService.languageSubject.subscribe((language) => {
         this.language = language;
-      }
+      })
     );
+
+    this.companies = this.readCsvService.companies;
+    if (!this.companies?.length) {
+      this.subscriptions.push(
+        this.readCsvService.fetchDataFromCsv().subscribe(() => {
+          this.companies = this.readCsvService.companies;
+        })
+      );
+    }
   }
 
   public changeLanguage() {
@@ -38,6 +51,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 }
