@@ -12,7 +12,7 @@ import { LanguageService } from '../shared/language.service';
 })
 export class HomePageComponent implements OnInit, OnDestroy {
   language: string = 'fr';
-  private subscription: Subscription | undefined;
+  private subscriptions: Subscription[] = [];
   public companies: BusinessInfo[] = [];
 
   constructor(
@@ -23,19 +23,21 @@ export class HomePageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.companies = this.readCsvService.companies;
     if (!this.companies?.length) {
-      this.readCsvService.fetchDataFromCsv().subscribe(() => {
-        this.companies = this.readCsvService.companies;
-      });
+      this.subscriptions.push(
+        this.readCsvService.fetchDataFromCsv().subscribe(() => {
+          this.companies = this.readCsvService.companies;
+        })
+      );
     }
 
-    this.subscription = this.languageService.languageSubject.subscribe(
-      (language) => {
+    this.subscriptions.push(
+      this.languageService.languageSubject.subscribe((language) => {
         this.language = language;
-      }
+      })
     );
   }
 
   ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 }
