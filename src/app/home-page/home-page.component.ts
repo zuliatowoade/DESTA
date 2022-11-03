@@ -1,9 +1,18 @@
-import { Subscription } from 'rxjs';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  BehaviorSubject,
+  filter,
+  Observable,
+  Subject,
+  Subscription,
+  takeUntil,
+} from 'rxjs';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 
 import { BusinessInfo } from '../shared/business-info-model';
 import { ReadCsvService } from '../shared/read-csv.service';
 import { LanguageService } from '../shared/language.service';
+import { MyFilterPipe } from '../shared/filter.pipe';
+import { SearchService } from '../shared/search.service';
 
 @Component({
   selector: 'app-home-page',
@@ -13,12 +22,16 @@ import { LanguageService } from '../shared/language.service';
 export class HomePageComponent implements OnInit, OnDestroy {
   language: string = 'fr';
   private subscriptions: Subscription[] = [];
+  filterargs = '';
   public companies: BusinessInfo[] = [];
-
+  query$: Observable<string>;
   constructor(
     private readCsvService: ReadCsvService,
-    private languageService: LanguageService
-  ) {}
+    private languageService: LanguageService,
+    private searchService: SearchService
+  ) {
+    this.query$ = this.searchService.searchQuery;
+  }
 
   ngOnInit(): void {
     this.companies = this.readCsvService.companies;
