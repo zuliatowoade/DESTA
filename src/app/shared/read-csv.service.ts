@@ -31,7 +31,7 @@ export class ReadCsvService {
             if (index === 0) {
               return;
             }
-            const businessInfoArray = row.trim().split('|');
+            const businessInfoArray = row.trim().split(',');
             this._companies.push(
               new BusinessInfo(
                 businessInfoArray[0],
@@ -47,7 +47,7 @@ export class ReadCsvService {
                 businessInfoArray[10],
                 businessInfoArray[11],
                 businessInfoArray[12],
-                businessInfoArray[13].split(','),
+                businessInfoArray[13].split(';'),
                 businessInfoArray[14]
               )
             );
