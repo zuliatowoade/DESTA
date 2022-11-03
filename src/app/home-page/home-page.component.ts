@@ -25,6 +25,7 @@ export class HomePageComponent implements OnInit, OnDestroy {
   public companies: BusinessInfo[] = [];
   query$: Observable<string>;
   value: string = '';
+  isSorted: boolean = false;
 
   constructor(
     private readCsvService: ReadCsvService,
@@ -49,6 +50,18 @@ export class HomePageComponent implements OnInit, OnDestroy {
         this.language = language;
       })
     );
+  }
+
+  sort() {
+    if (this.isSorted) {
+      this.companies = this.readCsvService.companies;
+    } else {
+      this.companies.sort((c1, c2) =>
+        c1.name.toLowerCase().localeCompare(c2.name.toLowerCase())
+      );
+    }
+
+    this.isSorted = !this.isSorted;
   }
 
   clearSearch() {

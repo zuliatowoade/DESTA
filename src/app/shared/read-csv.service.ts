@@ -10,7 +10,7 @@ export class ReadCsvService {
   private _companies: BusinessInfo[] = [];
 
   get companies() {
-    return this._companies;
+    return this._companies.slice();
   }
 
   set companies(companies) {
