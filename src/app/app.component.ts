@@ -54,17 +54,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.languageService.changeLanguage();
   }
 
-  sendQuery($event: any) {
-    this.searchService.setSearchQuery($event.target.value);
-    console.log($event.target.value);
-  }
-
   ngOnDestroy(): void {
     this.subscriptions.forEach((s) => s.unsubscribe());
   }
-
-  // filter () :any {
-  //   this.found.emit(this.filterargs)
-
-  // }
 }

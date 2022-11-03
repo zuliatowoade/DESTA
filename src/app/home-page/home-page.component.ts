@@ -22,9 +22,10 @@ import { SearchService } from '../shared/search.service';
 export class HomePageComponent implements OnInit, OnDestroy {
   language: string = 'fr';
   private subscriptions: Subscription[] = [];
-  filterargs = '';
   public companies: BusinessInfo[] = [];
   query$: Observable<string>;
+  value: string = '';
+
   constructor(
     private readCsvService: ReadCsvService,
     private languageService: LanguageService,
@@ -48,6 +49,10 @@ export class HomePageComponent implements OnInit, OnDestroy {
         this.language = language;
       })
     );
+  }
+
+  sendQuery() {
+    this.searchService.setSearchQuery(this.value);
   }
 
   ngOnDestroy(): void {

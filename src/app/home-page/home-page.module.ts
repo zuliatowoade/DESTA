@@ -5,7 +5,10 @@ import { HomePageRoutingModule } from './home-page-routing.module';
 import { HomePageComponent } from './home-page.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [HomePageComponent],
@@ -14,7 +17,10 @@ import { SharedModule } from '../shared/shared.module';
     HomePageRoutingModule,
     MatDividerModule,
     MatListModule,
-    SharedModule
+    MatInputModule,
+    MatIconModule,
+    SharedModule,
+    FormsModule,
   ],
 })
 export class HomePageModule {}
