@@ -24,6 +24,7 @@ export class ReadCsvService {
       .get('assets/desta.csv', { responseType: 'text' })
       .pipe(
         tap((data) => {
+          this._companies.length = 0;
           let csvToRowArray = data.split('\n');
 
           csvToRowArray.forEach((row, index) => {
@@ -50,7 +51,6 @@ export class ReadCsvService {
                 businessInfoArray[14]
               )
             );
-            console.log('this._companies', this._companies);
           });
         })
       );
