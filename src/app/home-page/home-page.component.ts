@@ -51,6 +51,11 @@ export class HomePageComponent implements OnInit, OnDestroy {
     );
   }
 
+  clearSearch() {
+    this.value = '';
+    this.sendQuery();
+  }
+
   sendQuery() {
     this.searchService.setSearchQuery(this.value);
   }

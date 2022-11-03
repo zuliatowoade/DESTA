@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [HomePageComponent],
@@ -21,6 +22,7 @@ import { FormsModule } from '@angular/forms';
     MatIconModule,
     SharedModule,
     FormsModule,
+    MatButtonModule,
   ],
 })
 export class HomePageModule {}

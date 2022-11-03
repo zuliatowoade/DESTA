@@ -1,3 +1,8 @@
 .width-50 {
   width: 50vw;
 }
+
+.sort-button {
+  margin-left: 10px;
+  vertical-align: super;
+}

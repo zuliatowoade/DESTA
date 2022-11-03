@@ -13,9 +13,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDividerModule } from '@angular/material/divider';
 import { HttpClientModule } from '@angular/common/http';
-
-
-import { filter } from 'rxjs';
 import { SharedModule } from './shared/shared.module';
 import { HomePageModule } from './home-page/home-page.module';
 import { FormsModule } from '@angular/forms';
@@ -37,7 +34,7 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule,
     SharedModule,
     HomePageModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
